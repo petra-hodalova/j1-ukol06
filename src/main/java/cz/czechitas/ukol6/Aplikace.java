@@ -9,6 +9,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class Aplikace extends JFrame {
+    private JLabel husyLabel;
+    private JLabel kraliciLabel;
+    private JLabel pocetHlavLabel;
+    private JLabel pocetNohouLabel;
+
+    private JTextField husyField;
+    private JTextField kraliciField;
+    private JTextField pocetHlavField;
+    private JTextField pocetNohouField;
+
+    private JButton vypocitatButton;
+
 
     public static void main(String[] args) {
         FlatLightLaf.setup();
@@ -31,9 +43,53 @@ public class Aplikace extends JFrame {
         setLayout(new MigLayout("wrap 2", "[right]rel[50:120:150,grow,fill]"));
         setMinimumSize(new Dimension(250, 200));
 
-        //TODO implementovat formulář podle zadání
+        husyField=new JTextField();
+        husyField.setHorizontalAlignment(JTextField.TRAILING);
+        husyLabel=new JLabel("Husy");
+        husyLabel.setDisplayedMnemonic('H');
+        husyLabel.setLabelFor(husyField);
+        add(husyLabel);
+        add(husyField);
+
+        kraliciField=new JTextField();
+        kraliciField.setHorizontalAlignment(JTextField.TRAILING);
+        kraliciLabel=new JLabel("Králíci");
+        kraliciLabel.setDisplayedMnemonic('K');
+        kraliciLabel.setLabelFor(kraliciField);
+        add(kraliciLabel);
+        add(kraliciField);
+
+        vypocitatButton=new JButton("Vypočítat");
+        vypocitatButton.setMnemonic('V');
+        add(vypocitatButton,"center, span");
+
+        pocetHlavField=new JTextField();
+        pocetHlavField.setHorizontalAlignment(JTextField.TRAILING);
+        pocetHlavField.setEnabled(false);
+        pocetHlavLabel=new JLabel("Počet hlav");
+        pocetHlavLabel.setLabelFor(pocetHlavField);
+        add(pocetHlavLabel);
+        add(pocetHlavField);
+
+        pocetNohouField=new JTextField();
+        pocetNohouField.setHorizontalAlignment(JTextField.TRAILING);
+        pocetNohouField.setEnabled(false);
+        pocetNohouLabel=new JLabel("Počet nohou");
+        pocetNohouLabel.setLabelFor(pocetNohouField);
+        add(pocetNohouLabel);
+        add(pocetNohouField);
+
+        vypocitatButton.addActionListener(this::handleVypocitat);
 
         pack();
+    }
+
+    private void handleVypocitat(ActionEvent actionEvent) {
+        int husy=Integer.parseInt(husyField.getText());
+        int kralici=Integer.parseInt(kraliciField.getText());
+
+        pocetHlavField.setText(Integer.toString(husy+kralici));
+        pocetNohouField.setText(Integer.toString(2*husy+4*kralici));
     }
 
 }
