@@ -14,8 +14,12 @@ public class Aplikace extends JFrame {
     private JLabel pocetHlavLabel;
     private JLabel pocetNohouLabel;
 
-    private JTextField husyField;
-    private JTextField kraliciField;
+    private JSpinner husySpinner;
+    private JSpinner kraliciSpinner;
+
+    private SpinnerNumberModel husySpinnerModel;
+    private SpinnerNumberModel kraliciSpinnerModel;
+
     private JTextField pocetHlavField;
     private JTextField pocetNohouField;
 
@@ -43,21 +47,21 @@ public class Aplikace extends JFrame {
         setLayout(new MigLayout("wrap 2", "[right]rel[50:120:150,grow,fill]"));
         setMinimumSize(new Dimension(250, 200));
 
-        husyField=new JTextField();
-        husyField.setHorizontalAlignment(JTextField.TRAILING);
+        husySpinnerModel = new SpinnerNumberModel(0,0,null,1);
+        husySpinner=new JSpinner(husySpinnerModel);
         husyLabel=new JLabel("Husy");
         husyLabel.setDisplayedMnemonic('H');
-        husyLabel.setLabelFor(husyField);
+        husyLabel.setLabelFor(husySpinner);
         add(husyLabel);
-        add(husyField);
+        add(husySpinner);
 
-        kraliciField=new JTextField();
-        kraliciField.setHorizontalAlignment(JTextField.TRAILING);
+        kraliciSpinnerModel = new SpinnerNumberModel(0,0,null,1);
+        kraliciSpinner=new JSpinner(kraliciSpinnerModel);
         kraliciLabel=new JLabel("Králíci");
         kraliciLabel.setDisplayedMnemonic('K');
-        kraliciLabel.setLabelFor(kraliciField);
+        kraliciLabel.setLabelFor(kraliciSpinner);
         add(kraliciLabel);
-        add(kraliciField);
+        add(kraliciSpinner);
 
         vypocitatButton=new JButton("Vypočítat");
         vypocitatButton.setMnemonic('V');
@@ -85,8 +89,8 @@ public class Aplikace extends JFrame {
     }
 
     private void handleVypocitat(ActionEvent actionEvent) {
-        int husy=Integer.parseInt(husyField.getText());
-        int kralici=Integer.parseInt(kraliciField.getText());
+        int husy=(Integer) husySpinner.getValue();
+        int kralici=(Integer) kraliciSpinner.getValue();
 
         pocetHlavField.setText(Integer.toString(husy+kralici));
         pocetNohouField.setText(Integer.toString(2*husy+4*kralici));
